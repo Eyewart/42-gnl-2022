@@ -1,0 +1,4 @@
+hello je m'appelle Hassan
+et j'essaye de coder getnextline
+ici on devrait etre à la 3e ligne
+byebye
