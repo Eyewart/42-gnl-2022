@@ -2,22 +2,38 @@
 
 #include "get_next_line.h"
 #include <stdio.h>
-#include <limits.h>
+#include <stdlib.h>
+#include <fcntl.h>
+
 int     main(void)
 {
-const char * filename = "test.txt";
-
-  FILE * fd = fopen(filename, "r");
+const char *filename = "test.txt";
+int fd;
+  fd = 0;
+  fd = open(filename, O_RDONLY);
+  char *result;
   if (fd) 
   { // succès
     // utilisation du fichier
-	while (get_next_line(fd))
-		printf("%s", get_next_line(fd));
+      result = get_next_line(fd);
+      printf("line1: %s\n", result);
+      free (result);
+      result = get_next_line(fd);
+      printf("line2: %s\n", result);
+      free (result);
+      result = get_next_line(fd);
+      printf("line3: %s\n", result);
+      free (result);
+      result = get_next_line(fd);
+      printf("line4: %s\n", result);
+      free (result);
+      //printf("line: %s\n", get_next_line(fd));
+      //printf("line: %s\n", get_next_line(fd));
+
   } 
   else 
   { // échec
-    fprintf(stderr, "Can't read %s\n", filename);
+    printf("file didn't open");
   }
   return 0;
 }
-

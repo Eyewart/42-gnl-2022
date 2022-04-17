@@ -1,4 +1,4 @@
-hello je m'appelle Hassan
-et j'essaye de coder getnextline
-ici on devrait etre à la 3e ligne
+hello je mappelle Hassan
+et jessaye de coder getnextline
+ici on devrait etre a la 3e ligne
 byebye
