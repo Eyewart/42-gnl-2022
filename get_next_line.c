@@ -6,7 +6,7 @@
 /*   By: Hassan <hrifi-la@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:31:48 by Hassan            #+#    #+#             */
-/*   Updated: 2022/04/17 14:49:33 by Hassan           ###   ########.fr       */
+/*   Updated: 2022/04/17 17:08:37 by Hassan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #define BUFFER_SIZE 101
 
 size_t	ft_strlen(const char *c)
@@ -53,7 +54,7 @@ size_t	ft_strlen(const char *c)
 	return (i);
 }
 
-char	*ft_strjoin2(char *s1, char *s2)
+char	*ft_strlink(char *s1, char *s2)
 {
 	char	*str;
 	int		t_size;
@@ -80,67 +81,79 @@ char	*ft_strjoin2(char *s1, char *s2)
 	return (str);
 }
 
+char	*ft_save (char *save, char *buffer, int i)
+{
+	if (!save)
+	{
+		save = malloc(sizeof(char) * 1);
+		save[0] = 0;			
+	}
+	else 
+	{
+		free(save);
+		save = malloc(sizeof(char) * 1);
+		save[0] = 0;
+	}
+	save = ft_strlink(save, &buffer[i+1]);
+	return (save);
+}
+
+char *ft_newline(char **save, char *line)
+{
+	int j;
+	int new_save;
+
+	j = 0;
+	while (save[0][j] != '\0')
+	{
+		if (save[0][j] == '\n')
+		{
+			save[0][j] = '\0';
+			new_save = 1;
+		}
+		else	
+			j++;
+	}
+	line = ft_strlink(line, *save);
+	if (new_save == 1)
+		*save = &(save[0][j+1]);
+	return (line);
+}
+
+void	ft_to_line(char *buffer, char **line, char **save, int i, int *EOL)
+{
+	if (buffer[i] == '\n')
+	{
+		buffer[i] = '\0';
+		*line = ft_strlink(*line, buffer);
+		*EOL = 1;
+		*save = ft_save(*save, buffer, i);
+	}
+}
+
 char	*get_next_line(int fd)
 {
 	char *line;
 	static char *save;
-	char buffer[BUFFER_SIZE + 1];
+	char *buffer;
 	int i;
-	int j;
-	int EOL = 0;
+	int EOL;
 	int ret_value;
-	int new_save = 0;
 
-	if (!(line = malloc(sizeof(char) * 1)))
+	EOL = 0;
+	if (!(line = malloc(1)) || !(buffer = malloc(BUFFER_SIZE + 1)))
 		return (NULL);
 	line[0] = '\0';
-	if (save) /*char *ft_newline(char *save, char *line)*/
-	{
-		j = 0;
-		while (save[j] != '\0')
-		{
-			if (save[j] == '\n')
-			{
-				save[j] = '\0';
-				new_save = 1;
-			}
-			else	
-				j++;
-		}
-		line = ft_strjoin2(line, save);
-		if (new_save == 1)
-			save = &(save[j+1]);
-	}
+	if (save)
+		line = ft_newline(&save, buffer);
 	while ((ret_value = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
 		buffer[ret_value] = '\0';
 		i = 0;
-		while (i != BUFFER_SIZE)
-		{
-			if (buffer[i] == '\n')
-			{
-				/*char *ft_add_line (char *line, char **save)*/
-				buffer[i] = '\0';
-				line = ft_strjoin2(line, buffer);
-				EOL = 1;
-				if (!save)
-				{
-					save = malloc(sizeof(char) * 1);
-					save[0] = 0;			
-				}
-				else 
-				{
-					free(save);
-					save = malloc(sizeof(char) * 1);
-					save[0] = 0;
-				}
-				save = ft_strjoin2(save, &buffer[i+1]);
-				break;
-			}
-			i++;
-		}
+		while (i++ != BUFFER_SIZE && EOL != 1)
+			ft_to_line(buffer, &line, &save, i, &EOL);
 		if (EOL != 1)
-			line = ft_strjoin2(line, buffer);
+			line = ft_strlink(line, buffer);
 		if (EOL == 1)
 			break ;
 	}
