@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   save.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Hassan <hrifi-la@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:31:48 by Hassan            #+#    #+#             */
-/*   Updated: 2022/07/17 13:36:28 by Hassan           ###   ########.fr       */
+/*   Updated: 2022/07/16 18:04:48 by Hassan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 	strdup(return_value of read() + 1)
 	strjoin(buf)
 	is there any '/n' in the new created str?
-	if yes, stores the rest in > static char *rest<
+	if yes, stores the rest in > static char *rest
 
 	if return_value == 0, it means EOF, gnl returns NULL
 
@@ -42,7 +42,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#define BUFFER_SIZE 10000
+#define BUFFER_SIZE 70
 
 size_t	ft_strlen(const char *c)
 {
@@ -87,62 +87,59 @@ char	*ft_save (char *save, char *buffer, int i)
 	{
 		save = malloc(sizeof(char) * 1);
 		save[0] = 0;
-		printf("hey\n");			
 	}
 	else 
 	{
-		free(save);
+		//free(save);
 		save = malloc(sizeof(char) * 1);
 		save[0] = 0;
 	}
+	printf("buffer: %s\n", &buffer[i+1]);
 	save = ft_strjoin2(save, &buffer[i+1]);
+	printf("save: %s\n", save);
 	return (save);
 }
 
-/*char *ft_add_line (char *line, char **save)
-				buffer[i] = '\0';
-				line = ft_strjoin2(line, buffer);
-				EOL = 1;
-				if (!save)
-				{
-					save = malloc(sizeof(char) * 1);
-					save[0] = 0;			
-				}
-				else 
-				{
-					free(save);
-					save = malloc(sizeof(char) * 1);
-					save[0] = 0;
-				}
-				save = ft_strjoin2(save, &buffer[i+1]);*/
-
-char *ft_newline(char **save, char *line, int *new_save)
+char *ft_newline(char **save, char *line)
 {
 	int j;
-	int i;
+	int new_save = 0;
 
 	j = 0;
-	i = 0;
 	while (save[0][j] != '\0')
 	{
 		if (save[0][j] == '\n')
 		{
 			save[0][j] = '\0';
-			*new_save = 1;
+			new_save = 1;
 		}
 		else	
 			j++;
 	}
 	if (save[0][0] != '\0')
 		line = ft_strjoin2(line, *save);
-	if (*new_save == 1)
+	if (new_save == 1)
 	{
-		j++;
-		while (save[0][j] != 0)
-			save[0][i++] = save[0][j++];
-		while (save[0][i] != 0)
-			save[0][i++] = 0;
-	}	return (line);
+		*save = &(save[0][j+1]);
+		printf("SAVE: %s\n", *save);
+	}
+	return (line);
+}
+
+void	ft_to_line(char *buffer, char **line, char **save, int i, int *EOL)
+{
+	while (i != BUFFER_SIZE)
+	{
+		if (buffer[i] == '\n')
+		{
+			buffer[i] = '\0';
+			*line = ft_strjoin2(*line, buffer);
+			*EOL = 1;
+			*save = ft_save(*save, buffer, i);
+			return;
+		}
+		i++;
+	}
 }
 
 char	*get_next_line(int fd)
@@ -160,33 +157,17 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line[0] = '\0';
 	if (save)
-		line = ft_newline(&save, line, &new_save);
-	if (new_save)
-	{
-		free (buffer);
-		return (line);
-	}
+		line = ft_newline(&save, line);
 	while ((ret_value = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
 		buffer[ret_value] = '\0';
 		i = 0;
-		while (i != BUFFER_SIZE)
-		{
-			if (buffer[i] == '\n')
-			{
-				buffer[i] = '\0';
-				line = ft_strjoin2(line, buffer);
-				EOL = 1;
-				save = ft_save(save, buffer, i);
-				break;
-			}
-			i++;
-		}
+		ft_to_line(buffer, &line, &save, i, &EOL);
 		if (EOL != 1)
 			line = ft_strjoin2(line, buffer);
 		if (EOL == 1)
 			break ;
 	}
-	free (buffer); // sinon leaks
+	free(buffer); // sinon leaks
 	return (line);
 }
