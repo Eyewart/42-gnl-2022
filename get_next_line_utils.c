@@ -6,7 +6,7 @@
 /*   By: hrifi-la <hrifi-la@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:31:42 by Hassan            #+#    #+#             */
-/*   Updated: 2022/07/21 19:55:10 by hrifi-la         ###   ########.fr       */
+/*   Updated: 2022/07/22 17:55:56 by hrifi-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,9 @@ void	ft_findend(char **buffer, char **line, char **save, int *endline)
 	}
 }
 
-void	ft_read(char **line, char **save, char **buffer, int fd)
+int	ft_read(char **line, char **save, char **buffer, int fd)
 {
 	int	ret_value;
-	int	i;
 	int	endline;
 
 	ret_value = read(fd, *buffer, BUFFER_SIZE);
@@ -118,8 +117,9 @@ void	ft_read(char **line, char **save, char **buffer, int fd)
 		ft_findend(buffer, line, save, &endline);
 		if (endline != 1)
 			*line = ft_strjoin2(*line, *buffer, 0, 0);
-		if (endline == 1)
+		else //(endline == 1)
 			break ;
 		ret_value = read(fd, *buffer, BUFFER_SIZE);
 	}
+	return (ret_value);
 }
