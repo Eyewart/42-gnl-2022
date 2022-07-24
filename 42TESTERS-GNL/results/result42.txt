@@ -1,0 +1,237 @@
+
+==========================================
+========== TEST 1 : The Alphabet =========
+==========================================
+
+READ = 42
+|(null)
+READ = 42
+|(null)
+READ = 42
+|(null)
+READ = 42
+|(null)
+|(null)
+READ = 42
+|(null)
+READ = 42
+|(null)
+|(null)
+READ = 42
+|(null)
+READ = 42
+|(null)
+|(null)
+READ = 42
+|(null)
+|(null)
+READ = 42
+|(null)
+|(null)
+READ = 42
+|(null)
+|(null)
+READ = 42
+|(null)
+|(null)
+READ = 42
+|(null)
+|(null)
+|(null)
+READ = 42
+|(null)
+|(null)
+|(null)
+|(null)
+READ = 42
+|(null)
+|(null)
+|(null)
+|(null)
+|(null)
+|(null)
+|(null)
+|(null)
+READ = 42
+|(null)
+|(null)
+|(null)
+|(null)
+|(null)
+|(null)
+|(null)
+READ = 42
+|(null)
+|(null)
+|(null)
+READ = 42
+|(null)
+|(null)
+|(null)
+READ = 42
+|(null)
+|(null)
+|(null)
+READ = 42
+|(null)
+|(null)
+READ = 42
+|(null)
+|(null)
+READ = 42
+|(null)
+READ = 42
+|(null)
+|(null)
+READ = 42
+|(null)
+|(null)
+READ = 42
+|(null)
+READ = 42
+|(null)
+|(null)
+READ = 42
+|(null)
+READ = 42
+|(null)
+READ = 42
+|(null)
+READ = 2
+|(null)
+READ = 0
+|(null)
+READ = 0
+|(null)
+
+Not Good - Wrong Number Of Lines
+
+==========================================
+========= TEST 2 : Empty Lines ===========
+==========================================
+
+READ = 42
+|(null)
+READ = 42
+|(null)
+|(null)
+READ = 42
+|(null)
+|(null)
+|(null)
+READ = 4
+|(null)
+|(null)
+READ = 0
+|(null)
+
+Right number of lines
+
+==========================================
+======== TEST 3 : The Empty File =========
+==========================================
+
+READ = 0
+|(null)
+
+Right number of lines
+
+==========================================
+========= TEST 4 : One New Line ==========
+==========================================
+
+READ = 1
+|(null)
+READ = 0
+|(null)
+
+Right number of lines
+
+==========================================
+========= TEST 5 : Four New Lines ========
+==========================================
+
+READ = 4
+|(null)
+|(null)
+|(null)
+|(null)
+READ = 0
+|(null)
+
+Right number of lines
+
+==========================================
+============== TEST 6 : 42 ===============
+==========================================
+
+READ = 41
+|(null)
+READ = 0
+|(null)
+READ = 42
+|(null)
+READ = 0
+|(null)
+READ = 42
+|(null)
+READ = 0
+|(null)
+
+Not Good - Wrong Number Of Lines
+
+==========================================
+============= TEST 7 : Marge =============
+==========================================
+
+READ = 42
+(null)
+(null)
+(null)
+READ = 42
+(null)
+(null)
+(null)
+READ = 42
+(null)
+(null)
+(null)
+READ = 34
+(null)
+(null)
+READ = 0
+(null)
+READ = 0
+READ = 42
+(null)
+(null)
+READ = 42
+(null)
+(null)
+READ = 42
+(null)
+(null)
+(null)
+READ = 42
+(null)
+(null)
+READ = 42
+(null)
+(null)
+(null)
+READ = 28
+(null)
+READ = 0
+(null)
+READ = 0
+(null)
+
+Not Good - Wrong Number Of Lines
+
+==========================================
+========= TEST 8 : Wrong Input ===========
+==========================================
+
+READ = -1
+Not Good, you don't return -1 if no FD
+

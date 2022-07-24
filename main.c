@@ -7,6 +7,21 @@
 
 int     main(void)
 {
+
+
+/*	int	fd =  open("41_no_nl", O_RDONLY);
+	char	*line;
+	int	i = 0;
+	while ((line = get_next_line(fd)))
+	{
+		printf("%s", line);
+		free(line);
+		i++;
+	}*/
+
+//printf("\n%p\n", get_next_line(fd));
+
+
 const char *filename = "test.txt";
 int fd;
   fd = 0;
@@ -36,4 +51,9 @@ int fd;
     printf("file didn't open");
   }
   return 0;
+
+
+
+
+
 }
