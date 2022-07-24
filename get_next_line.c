@@ -6,7 +6,7 @@
 /*   By: Hassan <hrifi-la@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:31:48 by Hassan            #+#    #+#             */
-/*   Updated: 2022/07/17 13:36:28 by Hassan           ###   ########.fr       */
+/*   Updated: 2022/07/21 17:20:08 by Hassan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#define BUFFER_SIZE 10000
+#define BUFFER_SIZE 1
 
 size_t	ft_strlen(const char *c)
 {
