@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrifi-la <hrifi-la@student.s19.be>         +#+  +:+       +#+        */
+/*   By: Hassan <hrifi-la@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:31:42 by Hassan            #+#    #+#             */
-/*   Updated: 2022/07/23 13:36:23 by hrifi-la         ###   ########.fr       */
+/*   Updated: 2022/07/24 12:15:53 by Hassan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@ char	*ft_strjoin2(char *s1, char *s2) /*, int lens1, int lens2)*/
 	int		i;
 	int		j;
 
-	/*if (!s1 || !s2)
-		return (NULL);*/
-	/*while (s1[lens1])
-		lens1++;
-	while (s2[lens2])
-		lens2++;*/
 	str = malloc(sizeof(*s1) * ((ft_strlen(s1) + ft_strlen(s2) + 1)));
 	if (str == 0)
 		return (NULL);
@@ -68,14 +62,17 @@ char	*ft_newline(char **save, char *line, int *new_save, int j)
 	{
 		if (save[0][j] == '\n')
 		{
+			//printf("\nsave1: %s\n", *save);
 			save[0][j] = '\0';
 			*new_save = 1;
+			//printf("\nsave2: %s\n", *save);
 		}
 		else
 			j++;
 	}
 	if (save[0][0] != '\0')
 		line = ft_strjoin2(line, *save);
+		//printf("\nline_x: %s\n", line);
 	if (*new_save == 1)
 	{
 		j++;
@@ -83,6 +80,8 @@ char	*ft_newline(char **save, char *line, int *new_save, int j)
 			save[0][i++] = save[0][j++];
 		while (save[0][i] != 0)
 			save[0][i++] = 0;
+		//printf("\nsave3: %s\n", *save);
+
 	}
 	return (line);
 }
@@ -111,11 +110,12 @@ int	ft_read(char **line, char **save, char **buffer, int fd)
 	int	ret_value;
 	int	endline;
 
+	endline = 0;
 	ret_value = read(fd, *buffer, BUFFER_SIZE);
 	while (ret_value > 0)
 	{
 		buffer[0][ret_value] = '\0';
-		ft_findend(buffer, line, save, &endline);
+		ft_findend(buffer, line, save, &endline); //if crlf present in buffer
 		if (endline != 1)
 			*line = ft_strjoin2(*line, *buffer);
 		else //(endline == 1)

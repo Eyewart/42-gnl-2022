@@ -9,7 +9,7 @@ int     main(void)
 {
 
 
-/*	int	fd =  open("41_no_nl", O_RDONLY);
+	int	fd =  open("test.txt", O_RDONLY);
 	char	*line;
 	int	i = 0;
 	while ((line = get_next_line(fd)))
@@ -17,12 +17,14 @@ int     main(void)
 		printf("%s", line);
 		free(line);
 		i++;
-	}*/
+	}
+  printf("%s", line);
+
 
 //printf("\n%p\n", get_next_line(fd));
 
 
-const char *filename = "test.txt";
+/*const char *filename = "test.txt";
 int fd;
   fd = 0;
   fd = open(filename, O_RDONLY);
@@ -50,7 +52,7 @@ int fd;
   { // échec
     printf("file didn't open");
   }
-  return 0;
+  return 0;*/
 
 
 

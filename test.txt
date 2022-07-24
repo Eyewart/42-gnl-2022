@@ -1,4 +1,3 @@
 hello je mappelle Hassan
-et jessaye de coder getnextline
-ici on devrait etre a la 3e ligne
+je suis entrain de coder getnextline
 byebye
