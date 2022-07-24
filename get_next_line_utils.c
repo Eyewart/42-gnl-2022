@@ -3,34 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Hassan <hrifi-la@student.s19.be>           +#+  +:+       +#+        */
+/*   By: hrifi-la <hrifi-la@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:31:42 by Hassan            #+#    #+#             */
-/*   Updated: 2022/07/24 12:15:53 by Hassan           ###   ########.fr       */
+/*   Updated: 2022/07/24 14:39:06 by hrifi-la         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-char	*ft_strjoin2(char *s1, char *s2) /*, int lens1, int lens2)*/
+char	*ft_strjoin2(char *s1, char *s2) 
 {
 	char	*str;
 	int		i;
 	int		j;
+	int		lens1;
+	int		lens2;
 
-	str = malloc(sizeof(*s1) * ((ft_strlen(s1) + ft_strlen(s2) + 1)));
+	lens1 = ft_strlen(s1);
+	lens2 = ft_strlen(s2);
+
+	str = malloc(sizeof(*s1) * (lens1 + lens2 + 1));
 	if (str == 0)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (i < ft_strlen(s1))
+	while (i < lens1)
 	{
 		str[i] = s1[i];
 		i++;
 	}
 	free(s1);
-	while (j < ft_strlen(s2))
+	while (j < lens2)
 		str[i++] = s2[j++];
 	str[i] = '\0';
 	return (str);
